@@ -25,6 +25,24 @@ class Solution(object):
 
 """
 Second solution is also sliding window, a dictionary is created to keep track of the indicies of the characters in the string 
-Window is 'shortedned' by setting the value of the key to be
+Window is 'shortedned' by setting the value of the left side to be one more than the previous index of the existing value 
+Its current index will be updated afterwards and the longes window will be calculated the same way 
 """
         
+class Solution(object):
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        seenDict = {}
+        left = longest = 0 
+
+        for i in range(len(s)): 
+            if s[i] in seenDict: # If it is already in the dictionary then it had already been seen 
+                left = max(seenDict[s[i]] + 1, left) # Keep the left pointer updated to not included the duplicate character 
+
+            seenDict[s[i]] = i # Update the indicies of the values of each character
+            longest = max(longest, i - left + 1) # Calculate the longest of the window 
+        
+        return longest 
